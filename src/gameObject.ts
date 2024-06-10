@@ -1,3 +1,4 @@
+import { Input } from "./input";
 export abstract class GameObject {
     position: [number, number, number];
     rotation: [number, number, number];
@@ -9,6 +10,6 @@ export abstract class GameObject {
         this.scale = [1, 1, 1];
     }
 
-    abstract update(deltaTime: number): void;
+    abstract update(deltaTime: number, input: Input): void;
     abstract render(gl: WebGLRenderingContext): void;
 }
