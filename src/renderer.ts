@@ -2,8 +2,8 @@ export class Renderer {
     canvas: HTMLCanvasElement;
     gl: WebGLRenderingContext;
 
-    constructor(canvasId: string) {
-        this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
+    constructor(canvas : HTMLCanvasElement) {
+        this.canvas = canvas;
         this.gl = this.canvas.getContext("webgl") as WebGLRenderingContext;
 
         if (!this.gl) {
