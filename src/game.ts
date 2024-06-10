@@ -3,6 +3,7 @@ import { GameObject } from "./gameObject"
 import { Input } from "./input"
 // import { Square } from "./square"
 import { Circle } from "./circle"
+import { Triangle } from "./triangle"
 import { doc } from "prettier"
 
 let canvas = document.createElement('canvas');
@@ -49,5 +50,5 @@ class Game {
 
 let game = new Game();
 game.start();
-let circle = new Circle(0.1, 0.5);
-game.addGameObject(circle);
+let triangle = new Triangle(0.5);
+game.addGameObject(triangle);
