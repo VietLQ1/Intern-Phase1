@@ -1,13 +1,19 @@
 import { GameObject } from "./gameObject";
 import { Input } from "./input";
 import { Matrix4 } from "./math/matrix4";
+import { Collider } from "./collider";
 
 export class Triangle extends GameObject {
     speed: number;
+    width: number;
+    height: number;
 
-    constructor(speed: number) {
+    constructor(speed: number , width: number, height: number) {
         super();
         this.speed = speed;
+        this.width = width;
+        this.height = height;
+        this.collider = new Collider(this.position[0], this.position[1], this.width * window.innerWidth, this.height* window.innerHeight);
     }
 
     update(deltaTime: number, input: Input): void {
@@ -16,20 +22,22 @@ export class Triangle extends GameObject {
         if (input.isKeyPressed('ArrowLeft')) this.position[0] -= this.speed * deltaTime;
         if (input.isKeyPressed('ArrowRight')) this.position[0] += this.speed * deltaTime;
         // console.log(this.position[0], this.position[1])
+        this.collider.x = this.position[0];
+        this.collider.y = this.position[1];
     }
 
     render(gl: WebGLRenderingContext): void {
         // Create a simple shader program
-        console.log(this.position[0], this.position[1])
+        //console.log(this.position[0], this.position[1])
         gl.uniformMatrix4fv(gl.getUniformLocation(gl.getParameter(gl.CURRENT_PROGRAM), 'u_position'), false, new Float32Array(Matrix4.translation(this.position).data));
         var buffer = gl.createBuffer();
         let vertices = new Float32Array([
             0, 0, 0,
-            0, window.innerHeight * 0.5, 0,
-            window.innerWidth * 0.5, window.innerHeight * 0.5, 0,
+            0, window.innerHeight * this.height, 0,
+            window.innerWidth * this.width, window.innerHeight * this.height, 0,
 
-            window.innerWidth * 0.5, window.innerHeight * 0.5, 0,
-            window.innerWidth * 0.5, 0, 0,
+            window.innerWidth * this.width, window.innerHeight * this.height, 0,
+            window.innerWidth * this.width, 0, 0,
             0, 0, 0
         ]);
         gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
