@@ -4,6 +4,7 @@ import { Input } from "./input"
 // import { Square } from "./square"
 import { Circle } from "./circle"
 import { Triangle } from "./triangle"
+import { Matrix4 } from "./math/matrix4"
 import { doc } from "prettier"
 
 let canvas = document.createElement('canvas');
@@ -13,11 +14,13 @@ class Game {
     input: Input;
     gameObjects: GameObject[];
     lastFrameTime: number;
+    projection : Matrix4;
     constructor() {
         this.renderer = new Renderer(canvas);
         this.input = new Input();
         this.gameObjects = [];
         this.lastFrameTime = 0;
+        this.projection = Matrix4.orthographic(0, canvas.width, 0, canvas.height, -1, 1);
         console.log('Game created')
     }
     addGameObject(gameObject: GameObject) {
@@ -44,6 +47,8 @@ class Game {
 
     render() {
         this.renderer.clear();
+        this.renderer.loadShader(this.projection);
+        this.renderer.gl.uniformMatrix4fv(this.renderer.gl.getUniformLocation(this.renderer.gl.getParameter(this.renderer.gl.CURRENT_PROGRAM), 'u_projection'), false, new Float32Array(this.projection.data));
         this.gameObjects.forEach(obj => obj.render(this.renderer.gl));
     }
 }
