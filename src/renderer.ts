@@ -35,8 +35,9 @@ export class Renderer {
         this.gl.shaderSource(vertexShader, `
             attribute vec3 a_position;
             uniform mat4 u_projection;
+            uniform mat4 u_position;
             void main() {
-                gl_Position = u_projection * vec4(a_position, 1.0);
+                gl_Position = u_projection * u_position * vec4(a_position, 1.0);
             }
         `);
         this.gl.compileShader(vertexShader);

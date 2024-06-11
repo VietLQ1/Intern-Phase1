@@ -1,5 +1,6 @@
 import { GameObject } from "./gameObject";
 import { Input } from "./input";
+import { Matrix4 } from "./math/matrix4";
 
 export class Triangle extends GameObject {
     speed: number;
@@ -14,12 +15,13 @@ export class Triangle extends GameObject {
         if (input.isKeyPressed('ArrowDown')) this.position[1] -= this.speed * deltaTime;
         if (input.isKeyPressed('ArrowLeft')) this.position[0] -= this.speed * deltaTime;
         if (input.isKeyPressed('ArrowRight')) this.position[0] += this.speed * deltaTime;
-        console.log(this.position[0], this.position[1])
+        // console.log(this.position[0], this.position[1])
     }
 
     render(gl: WebGLRenderingContext): void {
         // Create a simple shader program
-    
+        console.log(this.position[0], this.position[1])
+        gl.uniformMatrix4fv(gl.getUniformLocation(gl.getParameter(gl.CURRENT_PROGRAM), 'u_position'), false, new Float32Array(Matrix4.translation(this.position).data));
         var buffer = gl.createBuffer();
         let vertices = new Float32Array([
             0, 0, 0,

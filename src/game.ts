@@ -55,5 +55,5 @@ class Game {
 
 let game = new Game();
 game.start();
-let triangle = new Triangle(0.5);
+let triangle = new Triangle(500);
 game.addGameObject(triangle);
