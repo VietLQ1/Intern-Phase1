@@ -8,7 +8,7 @@ export class Cactus extends Obstacle
 {
     constructor() {
         super();
-        this.speed = 1000;
+        this.speed = 3000;
         this.collider = new Collider(this.position[0], this.position[1], 0.02 * window.innerWidth, 0.1 * window.innerHeight);
     }
     render(gl : WebGLRenderingContext) {
