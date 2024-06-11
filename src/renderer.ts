@@ -39,8 +39,8 @@ export class Renderer {
             uniform mat4 u_projection;
             uniform mat4 u_position;
             void main() {
-                v_texcoord = a_texcoord;
                 gl_Position = u_projection * u_position * vec4(a_position, 1.0);
+                v_texcoord = a_texcoord;
             }
         `);
         this.gl.compileShader(vertexShader);
